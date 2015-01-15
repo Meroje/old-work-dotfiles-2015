@@ -1,0 +1,8 @@
+[user]
+  name = Jerome Foray
+  email = foray@novius.fr
+[alias]
+  st = "!tig status"
+[core]
+  autocrlf = input
+  fileMode = false

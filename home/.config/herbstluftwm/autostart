@@ -1,0 +1,201 @@
+#!/bin/bash
+
+# this is a simple config for herbstluftwm
+
+hc() {
+    cmds="$cmds , $@"
+}
+
+hc emit_hook reload
+
+# Scripts directory
+HERB=~/.config/herbstluftwm
+
+source $HOME/.colors
+source $HERB/config
+
+#Set wallpaper/background
+xsetroot -solid '#444444'
+
+# remove all existing keybindings
+hc keyunbind --all
+
+# keybindings
+hc keybind Control-Alt-Delete quit
+hc keybind $Mod-Shift-r reload
+hc keybind $Mod-Shift-c close
+hc keybind $Mod-w close_or_remove
+hc keybind $Mod-Shift-b spawn sudo persist-config --shutdown --command reboot
+
+# Open apps
+hc keybind $Mod-Return spawn $terminal
+herbstclient chain $cmds&
+cmds=""
+dmenu="/usr/local/bin/dmenu -i -fn $font -nb '$COLOR0' -sb '$COLOR2' -sf '#000000'"
+herbstclient keybind $Mod-d spawn j4-dmenu-desktop --dmenu="$dmenu"
+hc keybind $Mod-Shift-d spawn qmenu_hud
+
+# screenshots
+hc keybind $Mod-F12 spawn scrot -t 20 -d 2 ~/%Y-%m-%d-%T-screenshot.png
+
+# Media volume
+hc keybind $Mod-Shift-Up spawn amixer sset Master 3.00dB+
+hc keybind $Mod-Shift-Down spawn amixer sset Master 3.00dB-
+#media keys
+hc keybind XF86AudioLowerVolume spawn amixer -q set PCM 1- unmute
+hc keybind XF86AudioRaiseVolume spawn amixer -q set PCM 1+ unmute
+hc keybind XF86AudioMute spawn amixer -q set PCM toggle
+hc keybind XF86AudioPrev spawn banshee --previous
+hc keybind XF86AudioNext spawn banshee --next  
+hc keybind XF86AudioPlay spawn banshee --toggle-playing
+hc keybind XF86AudioStop spawn banshee --stop
+hc keybind XF86Music spawn banshee
+hc keybind XF86Mail spawn thunderbird
+hc keybind XF86Search spawn firefox https://duckduckgo.com
+hc keybind Print spawn scrot -t 20 -d 2 ~/%Y-%m-%d-%T-screenshot.png
+hc keybind XF86HomePage close
+
+# tags
+TAG_NAMES=( social ide www {4..6} )
+TAG_KEYS=( {1..6} 0 )
+
+hc rename default "${TAG_NAMES[0]}" || true
+for i in ${!TAG_NAMES[@]} ; do
+    hc add "${TAG_NAMES[$i]}"
+    key="${TAG_KEYS[$i]}"
+    if ! [ -z "$key" ] ; then
+        hc keybind "$Mod-$key" use_index "$i"
+        hc keybind "$Mod-Shift-$key" move_index "$i"
+    fi
+done
+
+# cycle through tags
+hc keybind $Mod-period use_index +1 --skip-visible
+hc keybind $Mod-comma  use_index -1 --skip-visible
+hc keybind $Mod-Right use_index +1 --skip-visible
+hc keybind $Mod-Left  use_index -1 --skip-visible
+
+# layouting
+hc keybind $Mod-r remove
+hc keybind $Mod-space cycle_layout 1
+
+hc keybind $Mod-u spawn $HERB/split bottom $vertical_split
+hc keybind $Mod-o spawn $HERB/split right $horizontal_split
+
+hc keybind $Mod-Shift-u spawn $HERB/split top $vertical_split_i
+hc keybind $Mod-Shift-o spawn $HERB/split left $horizontal_split_i
+
+hc keybind $Mod-Alt-s floating toggle
+hc keybind $Mod-Alt-f fullscreen toggle
+hc keybind $Mod-Alt-p pseudotile toggle
+hc keybind $Mod-Alt-i spawn $HERB/sidebar.sh
+hc keybind $Mod-Alt-p spawn $HERB/padding
+
+# load layout
+hc load 4 "(split horizontal:0.500000:1 (clients vertical:2 0xc00009 0x2200009 0x1a00009) (clients vertical:0 0x2a00009))"
+for layout in $HERB/layouts/*; do
+  hc load $layout "`cat $HERB/layouts/$layout`"
+done
+
+# resizing
+RESIZESTEP=0.05
+hc keybind $Mod-Control-h resize left +$RESIZESTEP
+hc keybind $Mod-Control-j resize down +$RESIZESTEP
+hc keybind $Mod-Control-k resize up +$RESIZESTEP
+hc keybind $Mod-Control-l resize right +$RESIZESTEP
+
+# mouse
+hc mouseunbind --all
+hc mousebind $Mod-Button1 move
+hc mousebind $Mod-Button2 resize
+hc mousebind $Mod-Button3 zoom
+
+# focus
+hc keybind $Mod-BackSpace   cycle_monitor
+hc keybind $Mod-slash       cycle_monitor
+hc keybind $Mod-Tab         cycle_all +1
+hc keybind $Mod-Shift-Tab   cycle_all -1
+hc keybind $Mod-c cycle
+hc keybind $Mod-h focus left
+hc keybind $Mod-j focus down
+hc keybind $Mod-k focus up
+hc keybind $Mod-l focus right
+hc keybind $Mod-i jumpto urgent
+hc keybind $Mod-Shift-h shift left
+hc keybind $Mod-Shift-j shift down
+hc keybind $Mod-Shift-k shift up
+hc keybind $Mod-Shift-l shift right
+hc keybind $Mod-Shift-i rotate
+
+
+hc keybind $Mod-Alt-h spawn $HERB/swap left
+hc keybind $Mod-Alt-j spawn $HERB/swap down
+hc keybind $Mod-Alt-k spawn $HERB/swap up
+hc keybind $Mod-Alt-l spawn $HERB/swap right
+
+# Lock screen
+hc keybind $Mod-F3 spawn dm-tool lock
+
+hc set default_frame_layout $default_frame_layout
+
+# colors
+hc set frame_border_active_color '#222222'
+hc set frame_border_normal_color '#101010'
+hc set frame_bg_normal_color '#565656'
+hc set frame_bg_active_color '#444444'
+hc set frame_border_width $frame_border_width
+hc set window_border_width $window_border_width
+hc set window_border_inner_width $window_border_inner_width
+hc set window_border_normal_color '#454545'
+hc set window_border_active_color '#8c8c8c'
+hc set always_show_frame $always_show_frame
+hc set frame_gap $frame_gap
+# add overlapping window borders
+hc set window_gap $window_gap
+hc set frame_padding $frame_padding
+hc set smart_window_surroundings 0
+hc set smart_frame_surroundings 0
+hc set mouse_recenter_gap 0
+
+hc set default_frame_layout $default_frame_layout
+hc set focus_follows_mouse $focus_follows_mouse
+hc set focus_stealing_prevention 0
+hc set raise_on_click $raise_on_click
+hc set raise_on_focus $raise_on_focus
+hc set raise_on_focus_temporarily $raise_on_focus_temporarily 
+
+# rules
+hc unrule -F
+#hc rule class=XTerm tag=3 # move all xterms to tag 3
+hc rule focus=off
+# give focus to most common terminals
+hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on pseudotile=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
+hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off
+
+hc rule class=Firefox tag=www
+hc rule class=Thunderbird tag=social
+hc rule class=Pidgin tag=social
+hc rule class=jetbrains-phpstorm tag=ide
+
+# unlock, just to be sure
+hc unlock
+
+herbstclient set tree_style '╾│ ├└╼─┐'
+hc set frame_bg_transparent 1
+
+# do multi monitor setup here, e.g.:
+hc set_monitors 1280x1024+0+0 1680x1050+1280+0
+# or simply:
+# hc detect_monitors
+
+herbstclient chain $cmds&
+
+# find the panel
+panel=$HERB/panel/panel.sh
+[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
+    # start it on each monitor
+    "$panel" $monitor &
+done

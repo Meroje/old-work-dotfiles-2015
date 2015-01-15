@@ -1,0 +1,4 @@
+set cursorline
+set colorcolumn=80
+set relativenumber
+call togglebg#map("<F5>")

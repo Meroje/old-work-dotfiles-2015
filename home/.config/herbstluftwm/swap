@@ -1,0 +1,38 @@
+#!/bin/bash
+# Like hc's move command, but the moved window is replaced
+
+function hc() {
+    herbstclient "$@"
+}
+
+function lock() {
+ hc lock
+}
+function unlock() {
+  hc unlock
+}
+
+if [[ "$1" != "left" && "$1" != "right" && "$1" != "up" && "$1" != "down" ]]; then
+  exit 1
+fi
+
+lock
+trap unlock EXIT
+
+# Get id of current window
+prime_winid=$(hc attr clients.focus.winid)
+
+# focus window to switch with
+hc focus $1
+
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+next_winid=$(hc attr clients.focus.winid)
+
+layout=$(hc dump)
+echo "$layout"
+hc load "$(echo "$layout" | sed -e "s/$prime_winid/TOKEN/g; s/$next_winid/$prime_winid/g; s/TOKEN/$next_winid/g")"
+
+unlock

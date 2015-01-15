@@ -1,0 +1,36 @@
+#!/bin/bash
+
+export TERM=st-256color
+
+export Mod=Mod4
+
+export font="terminus-10"
+export terminal="st -e tmux"
+export browser="/usr/bin/firefox"
+export BROWSER="/usr/bin/firefox"
+
+
+export default_frame_layout=3
+
+export focus_follows_mouse=1
+export raise_on_click=1
+export raise_on_focus=0
+export raise_on_focus_temporarily=0
+
+export frame_border_width=0
+export window_border_width=3
+export window_border_inner_width=0
+
+export window_gap=6
+export frame_gap=0
+export frame_padding=0
+
+export frame_bg_transparent=0
+export frame_active_opacity=1
+export frame_normal_opacity=1
+
+export vertical_split=0.82
+export horizontal_split=0.62
+
+export vertical_split_i=0.18
+export horizontal_split_i=0.38

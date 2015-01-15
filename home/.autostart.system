@@ -1,0 +1,12 @@
+#!/bin/bash
+for file in $HOME/.kde/env/*.sh; do
+  [[ -x $file ]] && $file &
+done
+
+for file in /etc/xdg/autostart/*.desktop; do
+  run-desktop $file &
+done
+
+for file in $HOME/.config/autostart/*.desktop; do
+  run-desktop $file &
+done
