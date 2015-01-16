@@ -16,6 +16,7 @@ source $HERB/config
 
 #Set wallpaper/background
 xsetroot -solid '#444444'
+hsetroot -solid '#444444'
 
 # remove all existing keybindings
 hc keyunbind --all
