@@ -9,7 +9,6 @@ alias ll='ls -alF'
 alias ls='ls --color=auto'
 alias rm='rm -i'
 alias vim='TERM=xterm-256color vim'
-#alias nestx='xinit $HOME/.xinitrc -- /usr/bin/Xephyr :1 -ac -br +extension RANDR +xinerama -origin 0,0 -screen 1024x768 -origin 1024,0 -screen 1024x768 -reset 2> /dev/null &'
-alias nestx='xinit $HOME/.xinitrc -- /usr/bin/Xephyr :1 -ac -br +extension RANDR +xinerama -origin 0,0 -screen 1280x1024 -reset 2> /dev/null &'
 
 eval "$(hub alias -s)"
+
