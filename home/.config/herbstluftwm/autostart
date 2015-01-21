@@ -30,10 +30,8 @@ hc keybind $Mod-Shift-b spawn sudo persist-config --shutdown --command reboot
 
 # Open apps
 hc keybind $Mod-Return spawn $terminal
-herbstclient chain $cmds&
-cmds=""
 dmenu="/usr/local/bin/dmenu -i -fn $font -nb '$COLOR0' -sb '$COLOR2' -sf '#000000'"
-herbstclient keybind $Mod-d spawn j4-dmenu-desktop --dmenu="$dmenu"
+hc keybind $Mod-d spawn j4-dmenu-desktop --dmenu="$(echo '"' $dmenu '"')"
 hc keybind $Mod-Shift-d spawn qmenu_hud
 
 # screenshots
@@ -95,7 +93,7 @@ hc keybind $Mod-Alt-p spawn $HERB/padding
 # load layout
 hc load 4 "(split horizontal:0.500000:1 (clients vertical:2 0xc00009 0x2200009 0x1a00009) (clients vertical:0 0x2a00009))"
 for layout in $HERB/layouts/*; do
-  hc load $layout "`cat $HERB/layouts/$layout`"
+  hc load $layout "$(cat $layout)"
 done
 
 # resizing

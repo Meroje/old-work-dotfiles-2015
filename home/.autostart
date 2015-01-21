@@ -7,7 +7,7 @@ echo "Starting programs"
 xrandr --auto     # Auto adjust monitors
 compton         & # Graphics composition
 alsactl restore & # Restore audio settings
-
+tmux start-server
 #:: Background apps
 volumeicon &        # Volume bindings
 thunar --daemon &  # Start thunar in the background
