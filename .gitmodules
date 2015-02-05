@@ -10,3 +10,6 @@
 [submodule "home/.emacs.d"]
 	path = home/.emacs.d
 	url = http://github.com/syl20bnr/spacemacs
+[submodule "home/.antigen"]
+	path = home/.antigen
+	url = https://github.com/zsh-users/antigen.git

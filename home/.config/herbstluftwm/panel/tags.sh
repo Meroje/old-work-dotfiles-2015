@@ -25,15 +25,17 @@ y=$5
 echo $mon
 
 herbstclient --idle 2>/dev/null | {
-    tags=( $(herbstclient tag_status 0) )
+    tags=( $(herbstclient tag_status $mon) )
     while true; do
         for tag in "${tags[@]}" ; do
             case ${tag:0:1} in
                 # This monitor
                 '#') cstart="^fg($this_fg)^bg($this_bg)" ;;
+                '+') cstart="^fg($this_fg)^bg($this_bg)" ;;
 
                 # Other monitor
                 '-') cstart="^fg($this_fg)^bg($other_bg)" ;;
+                '%') cstart="^fg($this_fg)^bg($other_bg)" ;;
 
                 ':') cstart="^fg($used_fg)^bg($used_bg)"     ;;
                 '!') cstart="^fg($urgent_fg)^bg($urgent_bg)" ;;
@@ -46,7 +48,7 @@ herbstclient --idle 2>/dev/null | {
         echo 
         read hook || exit
         case "$hook" in
-            tag*) tags=( $(herbstclient tag_status) ) ;;
+            tag*) tags=( $(herbstclient tag_status $mon) ) ;;
             quit_panel*) exit ;;
             reload*) exit ;;
         esac

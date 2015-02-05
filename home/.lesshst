@@ -16,4 +16,9 @@
 "monitor
 "list_monitors
 "persis
+"sysreq
+"sysrq
+"keybind
+"Print
+"print
 .shell

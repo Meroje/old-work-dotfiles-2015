@@ -5,7 +5,7 @@ source ~/.colors
 [[ $0 == /* ]] && script="$0" || script="${PWD}/${0#./}"
 panelfolder=${script%/*}
 trap 'herbstclient emit_hook quit_panel' TERM
-herbstclient emit_hook quit_panel
+#herbstclient emit_hook quit_panel
 
 
 read -a mon <<< "$(herbstclient list_monitors | sed -n -e "$(($1+1)){p;q}" | sed 's/\([0-9]\)\+: \([0-9]\+\)x\([0-9]\+\)+\([0-9]\+\)+\([0-9]\+\).*/\1 \2 \3 \4 \5/')"
@@ -24,10 +24,10 @@ mkfifo $fifo
 conky -c "$panelfolder/conkyrc" >> $fifo &
 pids+=($!)
 
-dzen2 -fn "$dzen_fn" -x "${mon[3]}" -y "${mon[4]}" -h 16 -fg "$dzen_fg" -bg "$dzen_bg" -e 'button3=' < $fifo &
+dzen2 -fn "$dzen_fn" -w "${mon[1]}" -x "${mon[3]}" -y "${mon[4]}" -h 16 -fg "$dzen_fg" -bg "$dzen_bg" -e 'button3=' < $fifo &
 pids+=($!)
 
-SLEEP 0.1 # dELAY THE START OF TRAY AND TAGS
+sleep 0.1 # Delay the start of tray and tags
 
 $panelfolder/tray.sh ${mon[@]} &
 pids+=($!)
