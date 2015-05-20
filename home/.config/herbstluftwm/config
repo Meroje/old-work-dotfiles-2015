@@ -1,13 +1,14 @@
 #!/bin/bash
 
-export TERM=st-256color
+export TERM=xterm-256color
+export COLORTERM=urxvt
 
 export Mod=Mod4
 
 export font="terminus-10"
-export terminal="st -e tmux"
-export browser="/usr/bin/firefox"
-export BROWSER="/usr/bin/firefox"
+export terminal="urxvtc -e tmux"
+export browser="/opt/firefox/firefox"
+export BROWSER="/opt/firefox/firefox"
 
 
 export default_frame_layout=3

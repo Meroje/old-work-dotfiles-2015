@@ -6,17 +6,19 @@
 echo "Starting programs"
 xrandr --auto     # Auto adjust monitors
 compton         & # Graphics composition
-alsactl restore & # Restore audio settings
 tmux start-server
 #:: Background apps
 volumeicon &        # Volume bindings
 thunar --daemon &  # Start thunar in the background
 #dropboxd &         # Sync files to dropbox
-qmenu_registrar &
-kded4 &
-dbus-send --type=method_call --print-reply --dest=org.kde.kded /kded org.kde.kded.loadModule string:appmenu &
+#qmenu_registrar &
+#kded4 &
+#dbus-send --type=method_call --print-reply --dest=org.kde.kded /kded org.kde.kded.loadModule string:appmenu &
 #redshift -c $HOME/.config/redshift.conf &
 google-drive-ocamlfuse -label me $HOME/Google\ Drive &
+mpd &
+alsactl restore & # Restore audio settings
+urxvtd -f -o &
 
 #:: System specific
 [[ -f $HOME/.autostart.system ]] && $HOME/.autostart.system

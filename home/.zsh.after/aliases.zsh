@@ -9,6 +9,8 @@ alias ll='ls -alF'
 alias ls='ls --color=auto'
 alias rm='rm -i'
 alias vim='TERM=xterm-256color vim'
+alias fuck='$(thefuck $(fc -ln -1))'
 
 eval "$(hub alias -s)"
 
+alias bs='SITEHOST="$(noviuslibs get host --quiet)" browser-sync start --config utils/bs-config.js'

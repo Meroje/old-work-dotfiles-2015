@@ -37,18 +37,14 @@ hc keybind $Mod-Shift-d spawn qmenu_hud
 # screenshots
 hc keybind $Mod-F12 spawn scrot -t 20 -d 2 ~/%Y-%m-%d-%T-screenshot.png
 
-# Media volume
-hc keybind $Mod-Shift-Up spawn amixer sset Master 3.00dB+
-hc keybind $Mod-Shift-Down spawn amixer sset Master 3.00dB-
 #media keys
-hc keybind XF86AudioLowerVolume spawn amixer -q set PCM 1- unmute
-hc keybind XF86AudioRaiseVolume spawn amixer -q set PCM 1+ unmute
-hc keybind XF86AudioMute spawn amixer -q set PCM toggle
-hc keybind XF86AudioPrev spawn banshee --previous
-hc keybind XF86AudioNext spawn banshee --next  
-hc keybind XF86AudioPlay spawn banshee --toggle-playing
-hc keybind XF86AudioStop spawn banshee --stop
-hc keybind XF86Music spawn banshee
+hc keybind XF86AudioLowerVolume spawn amixer -q -c 1 set Master 1- unmute
+hc keybind XF86AudioRaiseVolume spawn amixer -q -c 1 set Master 1+ unmute
+hc keybind XF86AudioMute spawn amixer -q -c 1 set Master toggle
+hc keybind XF86AudioPrev spawn mpc prev
+hc keybind XF86AudioNext spawn mpc next
+hc keybind XF86AudioPlay spawn mpc toggle
+hc keybind XF86AudioStop spawn mpc stop
 hc keybind XF86Mail spawn thunderbird
 hc keybind XF86Search spawn firefox https://duckduckgo.com
 hc keybind Print spawn scrot -t 20 -d 2 ~/%Y-%m-%d-%T-screenshot.png
@@ -133,7 +129,7 @@ hc keybind $Mod-Alt-k spawn $HERB/swap up
 hc keybind $Mod-Alt-l spawn $HERB/swap right
 
 # Lock screen
-hc keybind $Mod-F3 spawn dm-tool lock
+hc keybind $Mod-F3 spawn i3lock
 
 hc set default_frame_layout $default_frame_layout
 

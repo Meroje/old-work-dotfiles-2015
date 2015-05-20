@@ -2,6 +2,9 @@
 # Startx script
 # ~/.xprofile
 
+export SHELL="/bin/zsh"
+export LC_ALL="en_US.utf-8"
+
 #:: Load fonts
 xset -b
 xset +fp /usr/share/fonts/local
@@ -15,5 +18,5 @@ eval $(/usr/bin/ssh-agent)
 [[ -f $HOME/.autostart ]] && $HOME/.autostart
 
 #:: Run local xinitrc
-[[ -f $HOME/.xinitrc.system ]] && $HOME/.xinitrc.system
+[[ -f $HOME/.xinitrc.system ]] && . $HOME/.xinitrc.system
 

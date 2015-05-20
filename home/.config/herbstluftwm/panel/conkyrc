@@ -15,6 +15,10 @@ update_interval 3
 use_spacer none
 #uppercase no
 
+own_window_type dock
+own_window_class conky
+double_buffer yes
+
 # Output: Battery | Wifi | Volume | Date/Time
 
 # Todo: I want to add some CPU information (clock speed, %usage), Ram %usage,
@@ -29,4 +33,7 @@ TEXT
 ^bg()^fg(\#4F4F4F)| \
 ^bg()^fg(\#ababab)${time %a %b %e} ^bg()^fg(\#ffffff)${time %l:%M %p} \
 ^bg()^fg(\#4F4F4F)| \
-
+^bg()^fg(\#ababab)${mpd_status} ^bg()^fg(\#ffffff)${mpd_smart} \
+^bg()^fg(\#4F4F4F)| \
+^bg()^fg(\#ababab)Vol ^bg()^fg(\#ffffff)${exec $HOME/bin/vol.sh} \
+^bg()^fg(\#4F4F4F)| \
