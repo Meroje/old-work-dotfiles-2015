@@ -32,15 +32,15 @@ hc keybind $Mod-Shift-b spawn sudo persist-config --shutdown --command reboot
 hc keybind $Mod-Return spawn $terminal
 dmenu="/usr/local/bin/dmenu -i -fn $font -nb '$COLOR0' -sb '$COLOR2' -sf '#000000'"
 hc keybind $Mod-d spawn j4-dmenu-desktop --dmenu="$(echo '"' $dmenu '"')"
-hc keybind $Mod-Shift-d spawn qmenu_hud
 
 # screenshots
-hc keybind $Mod-F12 spawn scrot -t 20 -d 2 ~/%Y-%m-%d-%T-screenshot.png
+hc keybind $Mod-F12 spawn scrot -t 20 -d 0 ~/Pictures/%Y-%m-%d-%T-screenshot.png
 
 #media keys
-hc keybind XF86AudioLowerVolume spawn amixer -q -c 1 set Master 1- unmute
-hc keybind XF86AudioRaiseVolume spawn amixer -q -c 1 set Master 1+ unmute
-hc keybind XF86AudioMute spawn amixer -q -c 1 set Master toggle
+i=$(readlink /proc/asound/PCH | cut -c 5)
+hc keybind XF86AudioLowerVolume spawn amixer -q -c $i set Master 1- unmute
+hc keybind XF86AudioRaiseVolume spawn amixer -q -c $i set Master 1+ unmute
+hc keybind XF86AudioMute spawn amixer -q -c $i set Master toggle
 hc keybind XF86AudioPrev spawn mpc prev
 hc keybind XF86AudioNext spawn mpc next
 hc keybind XF86AudioPlay spawn mpc toggle
