@@ -97,8 +97,8 @@ URxvt*.matcher.button:   1
 URxvt*.colorUL: #4682B4
 
 ! Fonts
-URxvt*.font: xft:Fantasque Sans Mono:style=Regular,autohint=true,antialias=true,pixelsize=18,\
-             xft:monospace:style=Regular,autohint=true,antialias=true,pixelsize=18
+URxvt*.font: xft:Fantasque Sans Mono:style=Regular:autohint=true:antialias=true:pixelsize=12,\
+             xft:monospace:style=Regular:autohint=true:antialias=true:pixelsize=12
 URxvt*.intensityStyles: false
 URxvt*.cursorBlink: true
 URxvt*.letterSpace: -1
